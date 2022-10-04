@@ -71,6 +71,7 @@ def animate_solution(maze, actions, algorithm):
     copy_maze[position_maze[0], position_maze[1]] = '+'
     c_action = 0
     snapshots = []
+    #print('actions', actions)
     for action in actions:
         position_maze = apply_action(position_maze, action)
         copy_maze[position_maze[0], position_maze[1]] = '+'
@@ -87,8 +88,8 @@ def animate_solution(maze, actions, algorithm):
     im = plt.imshow(a, cmap='gray')
 
     def animate_func(i):
-        if i % fps == 0:
-            print( '.', end ='' )
+        #if i % fps == 0:
+        #    print( '.', end ='' )
 
         im.set_array(snapshots[i])
         return [im]
@@ -102,4 +103,4 @@ def animate_solution(maze, actions, algorithm):
 
     anim.save(algorithm+'_result.mp4', fps=fps, extra_args=['-vcodec', 'libx264'])
 
-    print('Done!')
+    #print('Done!')

@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from funciones import *
 import time
 
 
@@ -269,14 +270,15 @@ def colorear_pasos(maze,pasos):
 #Finaliza colorear_pasos
 
 
-def greedy():
+def main_greedy(filename):
 
-  print("Ingresar nombre del archivo csv:")
-  string = input()
+  #print("Ingresar nombre del archivo csv:")
+  #string = input()
   
-  ruta = "maze-examples/" + string + ".csv"
+  #ruta = "maze-examples/" + string + ".csv"
    
-  M = read_matrix(ruta)
+  M = read_matrix(filename)
+  maze = np.genfromtxt(filename, delimiter=',', dtype=str)
 
   #(nFilas,nColumnas)=np.shape(M)
    
@@ -296,7 +298,6 @@ def greedy():
   
   #print(agregarPorHeuristicaCaminos(5,4,listaCaminos,np.array([[2,2],[1,3]])))
   
-  print("Greedy")
   
   #get the start time
   st = time.time()
@@ -306,24 +307,24 @@ def greedy():
   # get the execution time
   elapsed_time = et - st 
   
-  print(elapsed_time)
 
   
   pasos=caminoReverso_a_pasos(camino_gredy)
+  animate_solution(maze, greedy_pasos_01(camino_gredy), 'greedy')
   
   #print(pasos)
   
   #print(greedy_pasos_01(camino_gredy))
  
-  cmap = mpl.colors.ListedColormap(['#000000', '#ff2200', '#00ff00'])
+  #cmap = mpl.colors.ListedColormap(['#000000', '#ff2200', '#00ff00'])
   
-  plot1 = plt.figure("laberinto")
-  plt.imshow(M, cmap)
+  #plot1 = plt.figure("laberinto")
+  #plt.imshow(M, cmap)
 
-  plot2 = plt.figure("recorrido")
-  plt.imshow(colorear_pasos(M,pasos), cmap)
+  #plot2 = plt.figure("recorrido")
+  #plt.imshow(colorear_pasos(M,pasos), cmap)
   
-  plt.show()
+  #plt.show()
   
   return elapsed_time
 
@@ -332,7 +333,6 @@ def greedy():
 
 # run program
 
-greedy()
     
  
 

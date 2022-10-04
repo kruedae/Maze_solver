@@ -6,6 +6,10 @@ from tkinter import *
 from tkvideo import tkvideo
 import numpy as np
 from astar import *
+from uniforme import *
+from anchura import *
+from profundidad import *
+from greedy import *
 
 # create the root window
 root = tk.Tk()
@@ -29,20 +33,36 @@ def select_file():
     
     maze = np.genfromtxt(filename, delimiter=',', dtype=str)
     
-    
-    def charge_astar():
-        print('A*:')
-        time = main_astar(maze)
+    def play_video(algorithm, time):
         newWindow2 = Toplevel(newWindow)
         my_label = Label(newWindow2)
         my_label.pack()
-        player = tkvideo("./astar_result.mp4", my_label, loop = 0)
+        player = tkvideo("./"+algorithm+"_result.mp4", my_label, loop = 0)
         player.play()
         Label(newWindow2,
           text ="Tiempo: "+str(time)+' segundos',font=("Helvetica", 9)).pack()
         Label(newWindow2,
           text ="Espacio: Y",font=("Helvetica", 9)).pack()
+    
+    def charge_astar():
+        time = main_astar(maze)
+        play_video('astar',time)        
 
+    def charge_uniforme():
+        time = main_uniform(maze)
+        play_video('uniform',time) 
+    
+    def charge_anchura():
+        time = main_anchura(maze)
+        play_video('anchura',time)
+
+    def charge_profundidad():
+        time = main_profundidad(filename)
+        play_video('profundidad',time)
+
+    def charge_greedy():
+        time = main_greedy(filename)
+        play_video('greedy',time)
     
     
     # Toplevel object which will
@@ -61,15 +81,15 @@ def select_file():
           text ="Seleccione un solucionador").pack()
     b1 = Button(newWindow,text = "A*",command = charge_astar,activeforeground = "red",activebackground = "pink",pady=10)  
   
-    b2 = Button(newWindow, text = "Búsqueda greedy",activeforeground = "blue",activebackground = "pink",pady=10)  
+    b2 = Button(newWindow, text = "Búsqueda greedy",command = charge_greedy,activeforeground = "blue",activebackground = "pink",pady=10)  
 
-    b3 = Button(newWindow, text = "Búsqueda de costo uniforme",activeforeground = "green",activebackground = "pink",pady = 10)  
+    b3 = Button(newWindow, text = "Búsqueda de costo uniforme",command = charge_uniforme,activeforeground = "green",activebackground = "pink",pady = 10)  
 
     b4 = Button(newWindow, text = "Profundidad iterativa",activeforeground = "yellow",activebackground = "pink",pady = 10)
     
-    b5 = Button(newWindow, text = "Anchura",activeforeground = "yellow",activebackground = "pink",pady = 10)
+    b5 = Button(newWindow, text = "Anchura",command = charge_anchura,activeforeground = "yellow",activebackground = "pink",pady = 10)
     
-    b6 = Button(newWindow, text = "Profundidad",activeforeground = "yellow",activebackground = "pink",pady = 10)
+    b6 = Button(newWindow, text = "Profundidad",command = charge_profundidad,activeforeground = "yellow",activebackground = "pink",pady = 10)
 
     b1.pack()  
 

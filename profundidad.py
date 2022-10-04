@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+from funciones import *
 import time
 
 def read_matrix(path):
@@ -157,7 +158,6 @@ def posiciones_camino_profundidad(pasos,inicioJ):
   posI=0
   posJ=inicioJ
   posiciones=np.array([[0,inicioJ]])
-  print(posiciones)
   for paso in pasos:
     posI=realizarMovimientoI(paso,posI)
     posJ=realizarMovimientoJ(paso,posJ)
@@ -203,14 +203,14 @@ def colorear_pasos(maze,pasos):
   return camino  
 #Finaliza colorear_pasos
 
-def profundidad():
+def main_profundidad(filename):
 
-  print("Ingresar nombre del archivo csv:")
-  string = input()
+  #string = input()
   
-  ruta = "maze-examples/" + string + ".csv"
+  #ruta = "./" + string + ".csv"
  
-  M = read_matrix(ruta)
+  M = read_matrix(filename)
+  maze = np.genfromtxt(filename, delimiter=',', dtype=str)
 
   #get the start time
   st = time.time()
@@ -220,20 +220,20 @@ def profundidad():
   # get the execution time
   elapsed_time = et - st 
   
-  print(elapsed_time)
   
-  #print(profundidad_pasos_01(pasos))
- 
+  animate_solution(maze, profundidad_pasos_01(pasos), 'profundidad')
+  
+  return elapsed_time 
   #print(posiciones_camino_profundidad(pasos,encontrarInicio(M)))
-  cmap = mpl.colors.ListedColormap(['#000000', '#ff2200', '#00ff00'])
+  #cmap = mpl.colors.ListedColormap(['#000000', '#ff2200', '#00ff00'])
   
-  plot1 = plt.figure("laberinto")
-  plt.imshow(M, cmap)
+  #plot1 = plt.figure("laberinto")
+  #plt.imshow(M, cmap)
 
-  plot2 = plt.figure("recorrido")
-  plt.imshow(colorear_pasos(M,pasos), cmap)
+  #plot2 = plt.figure("recorrido")
+  #plt.imshow(colorear_pasos(M,pasos), cmap)
   
-  plt.show()
+  #plt.show()
 
   #plt.imshow(C)
   #plt.show()
@@ -243,7 +243,6 @@ def profundidad():
 
 # run program
 
-profundidad()
 
 
 

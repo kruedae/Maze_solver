@@ -30,7 +30,6 @@ def main_astar(maze):
     # get the start time
     st = time.time()
     S = node(initial_position(maze), actions=[], count=0, final_position=[maze.shape[0]-1, maze.shape[1]-2])
-    print(S.position)
     frontier= queue.PriorityQueue()
     frontier.put(S)
     current_node = frontier.get()
@@ -45,7 +44,7 @@ def main_astar(maze):
     et = time.time()
     # get the execution time
     elapsed_time = et - st
-    print('Execution time:', elapsed_time, 'seconds')
-    print(frontier.qsize(), current_node.position, [transform_actions(x) for x in current_node.actions])
+    #print('Execution time:', elapsed_time, 'seconds')
+    #print(frontier.qsize(), current_node.position, [transform_actions(x) for x in current_node.actions])
     animate_solution(maze, current_node.actions, 'astar')
     return elapsed_time
