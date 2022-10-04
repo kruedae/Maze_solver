@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import time
 
 def read_matrix(path):
   file = open(path)
@@ -139,6 +140,19 @@ def algoritmoProfundidad(M):
     
   #Finaliza algoritmo Profundidad
   
+def profundidad_pasos_01(pasos):
+  pasos01=[]
+  for paso in pasos:
+    if paso==0:
+      pasos01.append([1,0])
+    elif paso==1:
+      pasos01.append([0,1])
+    elif paso==2:
+      pasos01.append([-1,0])
+    elif paso==3:
+      pasos01.append([0,-1])  
+  return pasos01
+  
 def posiciones_camino_profundidad(pasos,inicioJ):
   posI=0
   posJ=inicioJ
@@ -153,7 +167,7 @@ def posiciones_camino_profundidad(pasos,inicioJ):
 
 
   
-def colorearCaminoProfundidad(maze,pasos):
+def colorear_pasos(maze,pasos):
   (nFilas,nColumnas)=np.shape(maze)
   camino = np.zeros((3*nFilas,3*nColumnas))
   
@@ -187,9 +201,9 @@ def colorearCaminoProfundidad(maze,pasos):
   camino[3*posI+2][3*posJ+1]=0.5
       
   return camino  
-#Finaliza colorearCaminoProfundidad
+#Finaliza colorear_pasos
 
-def fmain():
+def profundidad():
 
   print("Ingresar nombre del archivo csv:")
   string = input()
@@ -198,8 +212,18 @@ def fmain():
  
   M = read_matrix(ruta)
 
-   
+  #get the start time
+  st = time.time()
   pasos=algoritmoProfundidad(M)
+  # get the end time
+  et = time.time()
+  # get the execution time
+  elapsed_time = et - st 
+  
+  print(elapsed_time)
+  
+  #print(profundidad_pasos_01(pasos))
+ 
   #print(posiciones_camino_profundidad(pasos,encontrarInicio(M)))
   cmap = mpl.colors.ListedColormap(['#000000', '#ff2200', '#00ff00'])
   
@@ -207,7 +231,7 @@ def fmain():
   plt.imshow(M, cmap)
 
   plot2 = plt.figure("recorrido")
-  plt.imshow(colorearCaminoProfundidad(M,pasos), cmap)
+  plt.imshow(colorear_pasos(M,pasos), cmap)
   
   plt.show()
 
@@ -219,9 +243,7 @@ def fmain():
 
 # run program
 
-fmain()
-
-
+profundidad()
 
 
 
