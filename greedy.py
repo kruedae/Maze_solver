@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from funciones import *
+import os, psutil
 import time
 
 
@@ -310,6 +311,10 @@ def main_greedy(filename):
 
   
   pasos=caminoReverso_a_pasos(camino_gredy)
+
+  process = psutil.Process(os.getpid())
+  memory = process.memory_info().rss/(1024**2)
+
   animate_solution(maze, greedy_pasos_01(camino_gredy), 'greedy')
   
   #print(pasos)
@@ -326,7 +331,7 @@ def main_greedy(filename):
   
   #plt.show()
   
-  return elapsed_time
+  return elapsed_time, memory
 
 # end fmain
 

@@ -2,6 +2,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import os, psutil
 from funciones import *
 import time
 
@@ -219,11 +220,12 @@ def main_profundidad(filename):
   et = time.time()
   # get the execution time
   elapsed_time = et - st 
-  
+  process = psutil.Process(os.getpid())
+  memory = process.memory_info().rss/(1024**2)
   
   animate_solution(maze, profundidad_pasos_01(pasos), 'profundidad')
   
-  return elapsed_time 
+  return elapsed_time, memory
   #print(posiciones_camino_profundidad(pasos,encontrarInicio(M)))
   #cmap = mpl.colors.ListedColormap(['#000000', '#ff2200', '#00ff00'])
   

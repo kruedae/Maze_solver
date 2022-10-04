@@ -1,6 +1,7 @@
 import numpy as np
 import queue
 import time
+import os, psutil
 from funciones import *
 
 class node(object):
@@ -46,5 +47,7 @@ def main_astar(maze):
     elapsed_time = et - st
     #print('Execution time:', elapsed_time, 'seconds')
     #print(frontier.qsize(), current_node.position, [transform_actions(x) for x in current_node.actions])
+    process = psutil.Process(os.getpid())
+    memory = process.memory_info().rss/(1024**2)
     animate_solution(maze, current_node.actions, 'astar')
-    return elapsed_time
+    return elapsed_time, memory

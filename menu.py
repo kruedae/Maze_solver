@@ -33,7 +33,7 @@ def select_file():
     
     maze = np.genfromtxt(filename, delimiter=',', dtype=str)
     
-    def play_video(algorithm, time):
+    def play_video(algorithm, time, memory):
         newWindow2 = Toplevel(newWindow)
         my_label = Label(newWindow2)
         my_label.pack()
@@ -42,27 +42,27 @@ def select_file():
         Label(newWindow2,
           text ="Tiempo: "+str(time)+' segundos',font=("Helvetica", 9)).pack()
         Label(newWindow2,
-          text ="Espacio: Y",font=("Helvetica", 9)).pack()
+          text ="Espacio: "+str(memory)+ ' MB',font=("Helvetica", 9)).pack()
     
     def charge_astar():
-        time = main_astar(maze)
-        play_video('astar',time)        
+        time, memory = main_astar(maze)
+        play_video('astar',time, memory)        
 
     def charge_uniforme():
-        time = main_uniform(maze)
-        play_video('uniform',time) 
+        time, memory = main_uniform(maze)
+        play_video('uniform',time, memory) 
     
     def charge_anchura():
-        time = main_anchura(maze)
-        play_video('anchura',time)
+        time, memory = main_anchura(maze)
+        play_video('anchura',time, memory)
 
     def charge_profundidad():
-        time = main_profundidad(filename)
-        play_video('profundidad',time)
+        time, memory = main_profundidad(filename)
+        play_video('profundidad',time, memory)
 
     def charge_greedy():
-        time = main_greedy(filename)
-        play_video('greedy',time)
+        time, memory = main_greedy(filename)
+        play_video('greedy',time, memory)
     
     
     # Toplevel object which will

@@ -1,6 +1,7 @@
 import numpy as np
 import queue
 import time
+import os, psutil
 from funciones import *
 
 class node(object):
@@ -41,5 +42,8 @@ def main_uniform(maze):
     et = time.time()
     # get the execution time
     elapsed_time = et - st
+
+    process = psutil.Process(os.getpid())
+    memory = process.memory_info().rss/(1024**2)
     animate_solution(maze, current_node.actions, 'uniform')
-    return elapsed_time
+    return elapsed_time, memory
